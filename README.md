@@ -7,4 +7,4 @@
 
 Lv 6 <-New!
 
-![lv6][https://github.com/gahyejeon/pokeContact/blob/main/스크린샷%202024-07-19%20오전%2010.32.05.png](https://github.com/gahyejeon/pokeContact/blob/main/2024-07-1910.38.07-ezgif.com-video-to-gif-converter.gif)
+![lv6](https://github.com/gahyejeon/pokeContact/blob/main/스크린샷%202024-07-19%20오전%2010.32.05.png](https://github.com/gahyejeon/pokeContact/blob/main/2024-07-1910.38.07-ezgif.com-video-to-gif-converter.gif)
