@@ -2,8 +2,7 @@
 ## 연락처 앱 만들기
 
 앱 시연
-
-![앱화면1](https://github.com/gahyejeon/pokeContact/blob/main/필수구현%202.gif)
+![lv5까지](https://github.com/gahyejeon/pokeContact/blob/main/필수구현1.gif)
 
 Lv 6 <-New!
 
