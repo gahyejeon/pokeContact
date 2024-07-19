@@ -7,4 +7,4 @@
 
 Lv 6 <-New!
 
-![lv6 구현]
+![Lv6구현](https://github.com/gahyejeon/pokeContact/blob/main/lv6.gif)
