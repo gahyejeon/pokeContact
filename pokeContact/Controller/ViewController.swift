@@ -81,6 +81,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedContact = contacts[indexPath.row]
+        let phoneBookVC = PhoneBookViewController()
+        phoneBookVC.contact = selectedContact
+        self.navigationController?.pushViewController(phoneBookVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

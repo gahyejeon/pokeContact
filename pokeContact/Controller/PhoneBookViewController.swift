@@ -9,6 +9,9 @@ import UIKit
 
 class PhoneBookViewController: UIViewController {
     
+    // Contact 정보 저장할 변수
+    var contact: Contact?
+    
     let profileImageView = UIImageView()
     let randomImageButton = UIButton()
     let nameTextView = UITextView()
@@ -19,17 +22,32 @@ class PhoneBookViewController: UIViewController {
         
         self.view.backgroundColor = .white
         
+        setupNavigationBar()
+        setupUI()
+        updateUIWithContactInfo()
+        
+//        let titleLabel = UILabel()
+//        titleLabel.text = "연락처 추가"
+//        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+//        titleLabel.textColor = .black
+//        self.navigationItem.titleView = titleLabel
+//
+//        
+//        let saveButton = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(applyPoke))
+//        self.navigationItem.rightBarButtonItem = saveButton
+//
+    }
+    
+    // 기존 설정들 함수로 contact가 nil이면 "연락처 추가" contact 존재하면 contact.name을 타이틀로 설정
+    func setupNavigationBar() {
         let titleLabel = UILabel()
-        titleLabel.text = "연락처 추가"
+        titleLabel.text = contact?.name ?? "연락처 추가"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         titleLabel.textColor = .black
         self.navigationItem.titleView = titleLabel
 
-        
         let saveButton = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(applyPoke))
         self.navigationItem.rightBarButtonItem = saveButton
-        
-        setupUI()
     }
     
     func setupUI() {
@@ -90,6 +108,17 @@ class PhoneBookViewController: UIViewController {
         ])
     }
     
+    func updateUIWithContactInfo() {
+        if let contact = contact {
+            nameTextView.text = contact.name
+            phoneTextView.text = contact.phoneNumber
+            if let imageData = contact.profileImageData {
+                profileImageView.image = UIImage(data: imageData)
+            }
+        }
+    }
+
+    
     @objc func randomImage() {
         // 랜덤 이미지 로직 구현
         NetworkManager.shared.fetchRandomPokemon { [weak self] pokemon in
@@ -111,8 +140,16 @@ class PhoneBookViewController: UIViewController {
             return
         }
         
+        if contact == nil {
+            // 새로운 연락처 데이터를 CoreData에 저장
+            saveContact(name: name, phoneNumber: phoneNumber, profileImage: profileImageView.image)
+        } else {
+            // 기존 연락처 데이터를 업데이트
+            updateContact(contact: contact!, name: name, phoneNumber: phoneNumber, profileImage: profileImageView.image)
+        }
+        
         // 연락처 데이터를 CoreData에 저장
-        saveContact(name: name, phoneNumber: phoneNumber, profileImage: profileImageView.image)
+//        saveContact(name: name, phoneNumber: phoneNumber, profileImage: profileImageView.image)
         
         // 메인 화면으로 돌아가기
         navigationController?.popViewController(animated: true)
@@ -147,6 +184,22 @@ class PhoneBookViewController: UIViewController {
             
         } catch {
             print("연락처 저장 실패: \(error)")
+        }
+    }
+    
+    func updateContact(contact: Contact, name: String, phoneNumber: String, profileImage: UIImage?) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        contact.name = name
+        contact.phoneNumber = phoneNumber
+        if let profileImage = profileImage {
+            contact.profileImageData = profileImage.pngData()
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            print("연락처 업데이트 실패: \(error)")
         }
     }
 }
