@@ -94,7 +94,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func fetchContacts() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Contact> = Contact.fetchRequest()
-        
+        // 이름순으로 정렬하기
+        let sortDesciptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDesciptor]
         do {
             contacts = try context.fetch(fetchRequest)
             
