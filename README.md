@@ -3,7 +3,7 @@
 
 앱 시연
 
-![앱화면 보기](https://github.com/gahyejeon/pokeContact/blob/main/필수구현1.gif)
+![앱화면1](https://github.com/gahyejeon/pokeContact/blob/main/필수구현%202.gif)
 
 Lv 6 <-New!
 
